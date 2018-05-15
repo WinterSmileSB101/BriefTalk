@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".View.Fragment.CommunityFragment">
+    <data>
+
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_marginTop="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:orientation="vertical">
+                    <android.support.v7.widget.CardView
+                        app:cardBackgroundColor="@color/colorWrite"
+                        android:layout_below="@+id/floating_search_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp">
+                        <android.support.v7.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:orientation="horizontal">
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="center_vertical"
+                                        android:textAlignment="gravity"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        android:textColor="@color/colorBlack"
+                                        android:text="热门圈子"
+                                        android:layout_marginLeft="15dp"/>
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginLeft="15dp"
+                                        android:background="@color/colorRed"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/allCommunity"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:layout_alignParentEnd="true"
+                                    android:orientation="horizontal">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_weight="1"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="center_vertical"
+                                        android:textAlignment="gravity"
+                                        android:singleLine="true"
+                                        android:layout_height="match_parent"
+                                        android:textColor="@color/colorSlateGray"
+                                        android:text="全部圈子 >"
+                                        android:layout_marginRight="15dp"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical">
+
+                                <android.support.v7.widget.LinearLayoutCompat
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="match_parent"
+                                        android:layout_margin="15dp"
+                                        android:orientation="vertical">
+
+                                        <android.support.v7.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:textColor="@color/colorBlack"
+                                                android:text="E 口同声"
+                                                android:singleLine="true"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="center_vertical"
+                                                android:textAlignment="gravity"/>
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:textColor="@color/colorAqua"
+                                                android:text="14.01 万人在练口语"
+                                                android:singleLine="true"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="center_vertical"
+                                                android:textAlignment="gravity"
+                                                android:layout_marginLeft="15dp"
+                                                android:textSize="12sp"/>
+
+
+
+                                        </android.support.v7.widget.LinearLayoutCompat>
+
+                                        <android.support.v7.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:textColor="@color/colorSlateGray"
+                                                android:text="解密：动词过去式-ed的发音三大规则"
+                                                android:ellipsize="end"
+                                                android:singleLine="true"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="center_vertical"
+                                                android:textAlignment="gravity"/>
+
+                                        </android.support.v7.widget.LinearLayoutCompat>
+
+                                        <android.support.v7.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="1dp"
+                                            android:background="@color/colorSliteGray"/>
+
+                                    </LinearLayout>
+
+                                    <android.support.v7.widget.LinearLayoutCompat
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/colorSliteGray"/>
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="match_parent"
+                                        android:layout_margin="15dp"
+                                        android:orientation="vertical">
+
+                                        <android.support.v7.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:textColor="@color/colorBlack"
+                                                android:text="E 口同声"
+                                                android:singleLine="true"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="center_vertical"
+                                                android:textAlignment="gravity"/>
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:textColor="@color/colorAqua"
+                                                android:text="14.01 万人在练口语"
+                                                android:singleLine="true"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="center_vertical"
+                                                android:textAlignment="gravity"
+                                                android:layout_marginLeft="15dp"
+                                                android:textSize="12sp"/>
+
+                                        </android.support.v7.widget.LinearLayoutCompat>
+
+                                        <android.support.v7.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:textColor="@color/colorSlateGray"
+                                                android:text="解密：动词过去式-ed的发音三大规则"
+                                                android:ellipsize="end"
+                                                android:singleLine="true"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="center_vertical"
+                                                android:textAlignment="gravity"/>
+
+                                        </android.support.v7.widget.LinearLayoutCompat>
+
+                                        <android.support.v7.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="1dp"
+                                            android:background="@color/colorSliteGray"/>
+                                    </LinearLayout>
+
+
+                                </android.support.v7.widget.LinearLayoutCompat>
+
+
+                                <android.support.v7.widget.LinearLayoutCompat
+                                    android:layout_width="match_parent"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1"
+                                    android:orientation="horizontal">
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="match_parent"
+                                        android:layout_margin="15dp"
+                                        android:orientation="vertical">
+
+                                        <android.support.v7.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:textColor="@color/colorBlack"
+                                                android:text="E 口同声"
+                                                android:singleLine="true"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="center_vertical"
+                                                android:textAlignment="gravity"/>
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:textColor="@color/colorAqua"
+                                                android:text="14.01 万人在练口语"
+                                                android:singleLine="true"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="center_vertical"
+                                                android:textAlignment="gravity"
+                                                android:layout_marginLeft="15dp"
+                                                android:textSize="12sp"/>
+
+                                        </android.support.v7.widget.LinearLayoutCompat>
+
+                                        <android.support.v7.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:textColor="@color/colorSlateGray"
+                                                android:text="解密：动词过去式-ed的发音三大规则"
+                                                android:ellipsize="end"
+                                                android:singleLine="true"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="center_vertical"
+                                                android:textAlignment="gravity"/>
+
+                                        </android.support.v7.widget.LinearLayoutCompat>
+
+                                        <android.support.v7.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="1dp"
+                                            android:background="@color/colorSliteGray"/>
+                                    </LinearLayout>
+
+                                    <android.support.v7.widget.LinearLayoutCompat
+                                        android:layout_width="1dp"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/colorSliteGray"/>
+
+                                    <LinearLayout
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="match_parent"
+                                        android:layout_margin="15dp"
+                                        android:orientation="vertical">
+
+                                        <android.support.v7.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:textColor="@color/colorBlack"
+                                                android:text="E 口同声"
+                                                android:singleLine="true"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="center_vertical"
+                                                android:textAlignment="gravity"/>
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:textColor="@color/colorAqua"
+                                                android:text="14.01 万人在练口语"
+                                                android:singleLine="true"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="center_vertical"
+                                                android:textAlignment="gravity"
+                                                android:layout_marginLeft="15dp"
+                                                android:textSize="12sp"/>
+
+                                        </android.support.v7.widget.LinearLayoutCompat>
+
+                                        <android.support.v7.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="0dp"
+                                            android:layout_weight="1"
+                                            android:orientation="horizontal">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+                                                android:textColor="@color/colorSlateGray"
+                                                android:text="解密：动词过去式-ed的发音三大规则"
+                                                android:ellipsize="end"
+                                                android:singleLine="true"
+                                                android:layout_gravity="center_vertical"
+                                                android:gravity="center_vertical"
+                                                android:textAlignment="gravity"/>
+
+                                        </android.support.v7.widget.LinearLayoutCompat>
+
+                                        <android.support.v7.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="1dp"
+                                            android:background="@color/colorSliteGray"/>
+                                    </LinearLayout>
+
+
+                                </android.support.v7.widget.LinearLayoutCompat>
+
+                            </LinearLayout>
+
+
+                        </android.support.v7.widget.LinearLayoutCompat>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:layout_marginTop="15dp"
+                        app:cardBackgroundColor="@color/colorWrite"
+                        android:layout_below="@+id/floating_search_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <android.support.v7.widget.LinearLayoutCompat
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="40dp"
+                                android:orientation="horizontal">
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+                                    <TextView
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="center_vertical"
+                                        android:textAlignment="gravity"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="0dp"
+                                        android:layout_weight="1"
+                                        android:textColor="@color/colorBlack"
+                                        android:text="热门圈文"
+                                        android:layout_marginLeft="15dp"/>
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="1dp"
+                                        android:layout_marginLeft="15dp"
+                                        android:background="@color/colorRed"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+                        </android.support.v7.widget.LinearLayoutCompat>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/articleList"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </LinearLayout>
+
+                <com.arlib.floatingsearchview.FloatingSearchView
+                    android:id="@+id/floating_search_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:floatingSearch_searchBarMarginLeft="15dp"
+                    app:floatingSearch_searchBarMarginTop="5dp"
+                    app:floatingSearch_searchBarMarginRight="15dp"
+                    app:floatingSearch_searchHint="搜索感兴趣的圈文"
+                    app:floatingSearch_suggestionsListAnimDuration="250"
+                    app:floatingSearch_showSearchKey="false"
+                    app:floatingSearch_leftActionMode="showHamburger"
+                    app:floatingSearch_close_search_on_keyboard_dismiss="true"/>
+
+            </RelativeLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <!--新圈文按钮-->
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/addNewBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:src="@drawable/ic_add"/>
+
+    </RelativeLayout>
+</layout>

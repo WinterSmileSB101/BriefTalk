@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_message"
+            android:icon="@drawable/ic_message"
+            android:title="我的消息"></item>
+
+        <item
+            android:id="@+id/nav_plan"
+            android:icon="@drawable/ic_plan"
+            android:title="我的计划"></item>
+    </group>
+
+    <item android:title="个性化">
+        <menu>
+            <item
+                android:id="@+id/nav_skin"
+                android:icon="@drawable/ic_theme"
+                android:title="个性换肤"/>
+        </menu>
+    </item>
+
+    <group android:id="@+id/system">
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_setting"
+            android:title="设置"/>
+        <item
+            android:id="@+id/nav_send"
+            android:icon="@drawable/ic_callback"
+            android:title="反馈"/>
+
+        <item
+            android:id="@+id/nav_about"
+            android:icon="@drawable/ic_about"
+            android:title="关于"/>
+    </group>
+
+</menu>

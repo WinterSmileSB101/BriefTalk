@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".View.Activity.CardLearnActivity">
+    <data>
+        <variable
+            name="titleText"
+            type="String"/>
+    </data>
+
+<android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorRed">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:clipChildren="false"
+        android:fitsSystemWindows="true"
+        android:background="@color/colorSlateGray">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:fitsSystemWindows="true"
+            app:popupTheme="@style/AppTheme.PopupOverlay" >
+            <!--头部-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
+                android:background="?attr/colorPrimary"
+                >
+                <!--<android.support.design.widget.TabLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    app:tabBackground="?attr/colorPrimary"
+                    app:tabGravity="center"
+                    app:tabIndicatorHeight="0dp"
+                    android:id="@+id/tablayout"/>-->
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_marginTop="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:text="@{titleText}"
+                    android:textSize="18sp"
+                    android:textAlignment="gravity"
+                    android:gravity="center"
+                    android:layout_centerInParent="true"
+                    android:textColor="@color/colorWrite"/>
+            </RelativeLayout>
+            <!--头部-->
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:clipChildren="false"></android.support.v4.view.ViewPager>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
+</layout>

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.alvin.smilesb101.brieftalk">
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <!-- 权限 -->
+    <uses-permission-sdk-23 android:name="android.permission.INTERNET" />
+    <!-- 获取WiFi状态 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <!-- 获取网络信息状态，如当前的网络连接是否有效 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- 读取手机状态 phone group -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 往SDCard读写数据权限   storage group -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <!-- 定位相关权限，建议添加，便于人群的定向  location group -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission
+        android:name="android.permission.SET_DEBUG_APP"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <!-- 权限 -->
+    <application
+        android:name=".View.Application.BriefTalkApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/icon"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/icon"
+        android:supportsRtl="true"
+        android:theme="@style/DayTheme">
+        <activity android:name=".View.Activity.WelcomeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".View.Activity.LoginActivity"
+            android:label="@string/app_name" />
+        <activity
+            android:name=".View.Activity.MainActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustPan|stateHidden" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.alvin.smilesb101.brieftalk.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity
+            android:name=".View.Activity.ShowOcrActivity"
+            android:label="@string/title_activity_show_ocr" />
+
+        <!-- QQ 互联 -->
+        <activity
+            android:name="com.tencent.tauth.AuthActivity"
+            android:launchMode="singleTask"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- 上线需要改成自己的，未上线使用自己的 -->
+                <data android:scheme="tencent222222" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tencent.connect.common.AssistActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- QQ 互联 -->
+        <activity android:name=".View.Activity.ZhiHuDetailActivity" />
+        <activity android:name=".View.Activity.ReviewActivity" />
+        <activity android:name=".View.Activity.CardLearnActivity" />
+        <activity android:name=".View.Activity.SkinActivity" />
+        <activity android:name=".View.Activity.AboutProgrammAvtivity" />
+        <activity android:name=".View.Activity.UserInfoActivity"></activity>
+    </application>
+
+</manifest>

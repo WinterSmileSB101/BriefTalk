@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="itemBean"
+            type="com.alvin.smilesb101.brieftalk.Bean.ShowBaiSiBuDeBean"/>
+    </data>
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/colorWrite"
+    android:layout_marginBottom="15dp">
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp">
+
+            <com.alvin.smilesb101.brieftalk.View.CustomView.RoundImageView
+                android:id="@+id/userHeader"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/my_headimg"
+                android:layout_gravity="center_vertical"/>
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp">
+                <TextView
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/colorBlack"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textAlignment="gravity"
+                    android:text="@{itemBean.name}"/>
+
+                <TextView
+                    android:text="@{itemBean.create_time}"
+                    android:textColor="@color/colorSlateGray"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textAlignment="gravity"
+                    />
+            </android.support.v7.widget.LinearLayoutCompat>
+
+            <android.support.v7.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_gray_image"
+                android:layout_gravity="center_vertical">
+                <TextView
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:id="@+id/communityName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="好奇实验室"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center"
+                    android:textColor="@color/colorAqua"
+                    android:textAlignment="gravity"/>
+            </android.support.v7.widget.LinearLayoutCompat>
+
+        </android.support.v7.widget.LinearLayoutCompat>
+
+        <!--内容区域-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
+                <TextView
+                    android:id="@+id/itemTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    android:textColor="@color/colorBlack"
+                    android:text="@{itemBean.text.trim()}"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textAlignment="gravity"/>
+
+                <TextView
+                    android:id="@+id/itemContent"
+                    android:text="@{itemBean.text}"
+                    android:textAlignment="gravity"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorSlateGray"
+                    android:ellipsize="end"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp">
+                <ImageView
+                    android:id="@+id/itemImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSliteGray"/>
+
+        <!--底部点赞-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_like"
+                        android:layout_gravity="center"
+                        android:layout_centerInParent="true"/>
+
+                    <TextView
+                        android:layout_marginStart="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{itemBean.love}"
+                        android:textColor="@color/colorSlateGray"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textAlignment="gravity"
+                        android:layout_centerInParent="true"/>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="@color/colorSliteGray"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_review"
+                        android:layout_gravity="center" />
+
+                    <TextView
+                        android:layout_marginStart="15dp"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@{itemBean.hate}"
+                        android:textColor="@color/colorSlateGray"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textAlignment="gravity"/>
+
+                </LinearLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+</android.support.v7.widget.CardView>
+</layout>

@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".View.Fragment.WordBookFragment">
+    <data>
+        <variable
+            name="mFragment"
+            type="com.alvin.smilesb101.brieftalk.View.Fragment.WordBookFragment"/>
+
+        <variable
+            name="reviewWordsCount"
+            type="Integer"/>
+
+        <variable
+            name="planInfoText"
+            type="String"/>
+    </data>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatSpinner
+                android:layout_width="wrap_content"
+                android:entries="@array/wordbookList"
+                android:spinnerMode="dropdown"
+                android:dropDownWidth="200dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"/>
+
+            <TextView
+                android:id="@+id/wordSyncBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="25dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_alignParentEnd="true"
+                android:text="同步"
+                android:gravity="center"
+                android:textAlignment="gravity"
+                android:textColor="?colorPrimary"
+                android:src="@drawable/ic_camera" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSlateGray"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            >
+            <RelativeLayout
+                android:id="@+id/cardLeaningBtn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="15dp"
+                android:background="@drawable/round_write_image">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginStart="5dp"
+                android:layout_centerInParent="true">
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:srcCompat="@drawable/ic_card"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="卡片学习"
+                    android:textSize="18sp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/colorBlack"/>
+            </LinearLayout>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/reviewBtn"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/round_write_image"
+                android:layout_marginStart="10dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_centerInParent="true"
+                android:layout_marginStart="5dp">
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/ic_reviewtest"/>
+
+                <TextView
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="复习检测"
+                    android:textSize="18sp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/colorBlack"/>
+
+                <TextView
+                    android:id="@+id/reviewWords"
+                    android:layout_marginStart="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text='@{reviewWordsCount+""}'
+                    android:textSize="18sp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:textAlignment="gravity"
+                    android:textColor="?colorPrimary"/>
+            </LinearLayout>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSlateGray"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/planInfo"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:textSize="16sp"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textAlignment="gravity"
+                android:text="@{planInfoText}"
+                android:textColor="@color/colorSlateGray"/>
+
+            <TextView
+                android:id="@+id/editBtn"
+                android:text="编辑"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:textAlignment="gravity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="?colorPrimary"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/settingBtn"
+                android:text="设置"
+                android:layout_gravity="center_vertical"
+                android:gravity="center_vertical"
+                android:textAlignment="gravity"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="?colorPrimary"
+                android:textSize="16sp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorSlateGray"/>
+        <android.support.v7.widget.RecyclerView
+                android:id="@+id/wordRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+    </LinearLayout>
+</RelativeLayout>
+
+</layout>

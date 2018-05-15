@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="view"
+            type="com.alvin.smilesb101.brieftalk.View.Fragment.TranslateFragment"/>
+
+        <variable
+            name="translationBean"
+            type="com.alvin.smilesb101.brieftalk.Bean.YouDaoTranslateDataBean"/>
+
+    </data>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".View.Fragment.TranslateFragment"
+    android:orientation="horizontal"
+    android:background="@color/colorSliteWrite">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15dp"
+        android:orientation="vertical"
+        android:background="@color/colorSliteWrite">
+
+        <!--输入查询区域-->
+        <android.support.v7.widget.CardView
+            android:id="@+id/translateInputPanel"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
+            android:elevation="3dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@color/colorWrite">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:entries="@array/laList"
+                        android:spinnerMode="dropdown"
+                        android:dropDownWidth="200dp"
+                        android:layout_height="match_parent" />
+                    <LinearLayout
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="@color/colorSliteGray"/>
+                    <LinearLayout
+                        android:id="@+id/translateBtn"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/translateText"
+                            android:text="@string/tranlsate"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:textSize="18sp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textAlignment="gravity"/>
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_gravity="center"
+                            android:id="@+id/translateImage"
+                            android:src="@drawable/ic_right_arrow"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <!--输入部分-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:background="@color/colorSliteGray"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1">
+                    <EditText
+                        android:id="@+id/translateInput"
+                        android:layout_margin="15dp"
+                        android:textSize="16sp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="textMultiLine"
+                        android:gravity="left|top"
+                        android:background="@null"
+                        android:textCursorDrawable="@null"
+                        android:textColorHint="@color/colorSlateGray"
+                        android:hint="@string/enterTranslateHint"
+                        tools:ignore="RtlHardcoded" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/translateClearBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_clear"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:visibility="gone"/>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        <!--输入查询区域-->
+
+        <!--查询显示结果区域-->
+        <android.support.v7.widget.CardView
+            android:visibility="@{translationBean==null?View.GONE:View.VISIBLE}"
+            android:id="@+id/translateResultPanel"
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="3dp"
+            android:elevation="3dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardUseCompatPadding="true"
+            app:cardBackgroundColor="@color/colorWrite">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="15dp">
+                <!--译文部分-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:text="译文"
+                            android:textColor="@color/colorSlateGray"/>
+                        <TextView
+                            android:text="@{translationBean.getTranslate().getTranslations().get(0)}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:textAlignment="gravity"
+                            android:textColor="@color/cardview_dark_background"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:visibility="@{translationBean.getTranslate().getWebExplains()==null?View.GONE:View.VISIBLE}"
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/ic_dotted_line_shape"
+                        android:layerType="software"/>
+
+                    <LinearLayout
+                        android:visibility="@{translationBean.getTranslate().getWebExplains()==null?View.GONE:View.VISIBLE}"
+                        android:id="@+id/moreTranstionPanel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:text="更多释义"
+                            android:textColor="@color/colorSlateGray"/>
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/moreTranstion"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <!--译文部分-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/black_overlay"/>
+                <!--操作部分-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_gravity="center_vertical">
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_audio"
+                            android:layout_marginEnd="15dp"/>
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_copy"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"/>
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_share"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"/>
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_full_screen"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+                <!--操作部分-->
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+        <!--查询显示结果区域-->
+
+
+        <!--查询历史记录区域-->
+        <android.support.v7.widget.RecyclerView
+            android:visibility="@{translationBean==null?View.VISIBLE:View.GONE}"
+            android:id="@+id/translateHistory"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:background="@color/colorTranslate"/>
+        <!--查询历史记录区域-->
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
+</layout>
