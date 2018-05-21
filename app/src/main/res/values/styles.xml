@@ -37,6 +37,12 @@
         <item name="android:textSize">18sp</item>
     </style>
 
+    <!--collapasing状态栏的小号白色标题外表-->
+    <style name="expendCustom" parent="TextAppearance.Design.CollapsingToolbar.Expanded">
+        <item name="android:textColor">@color/transparent</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
     <!--白天主题-->

@@ -1,8 +1,10 @@
 package com.alvin.smilesb101.brieftalk.InterfaceAPI;
 
+import com.alvin.smilesb101.brieftalk.Bean.HistoryTodayBean;
 import com.alvin.smilesb101.brieftalk.Bean.ShenHuiFuBean;
 import com.alvin.smilesb101.brieftalk.Bean.ShowApiBean;
 import com.alvin.smilesb101.brieftalk.Bean.ShowApiBSBDEntityBean;
+import com.alvin.smilesb101.brieftalk.Bean.ShowApiCommonBean;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -28,4 +30,12 @@ public interface ShowApiService {
 
     @GET("255-1")
     Observable<ShowApiBSBDEntityBean> getBaiSiBuDeJie(@QueryMap Map<String,String> queries);
+
+    /**
+     *
+     * @param queries
+     * @return
+     */
+    @GET("119-42")
+    Observable<ShowApiCommonBean<HistoryTodayBean>> getHistoryToday(@QueryMap Map<String,String> queries);
 }

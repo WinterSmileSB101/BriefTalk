@@ -1,41 +1,54 @@
 package com.alvin.smilesb101.brieftalk.View.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.util.Pair;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alvin.smilesb101.brieftalk.Bean.BmobTableBean.UserInfo;
 import com.alvin.smilesb101.brieftalk.Bean.BmobTableBean._User;
 import com.alvin.smilesb101.brieftalk.R;
 import com.alvin.smilesb101.brieftalk.View.Activity.BaseActivity.ThemeBaseActivity;
+import com.alvin.smilesb101.brieftalk.View.CustomView.RoundImageView;
 import com.alvin.smilesb101.brieftalk.View.Fragment.CommunityFragment;
 import com.alvin.smilesb101.brieftalk.View.Fragment.DictionaryFragment;
 import com.alvin.smilesb101.brieftalk.View.Fragment.DiscoryFragment;
 import com.alvin.smilesb101.brieftalk.View.Fragment.TranslateFragment;
 import com.alvin.smilesb101.brieftalk.View.Fragment.WordBookFragment;
+import com.alvin.smilesb101.brieftalk.View.Utils.ToastUtils;
 import com.alvin.smilesb101.brieftalk.databinding.ActivityNavMainBinding;
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.bumptech.glide.Glide;
 
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.FindListener;
 
 public class MainActivity extends ThemeBaseActivity implements View.OnClickListener,NavigationView.OnNavigationItemSelectedListener{
 
     private int lastSelectedPosition = 0;
     private BottomNavigationBar navigationBar;
+    private Context context;
 
     private BottomNavigationBar.OnTabSelectedListener bottomNavSelect = new BottomNavigationBar.OnTabSelectedListener() {
         @Override
@@ -66,9 +79,15 @@ public class MainActivity extends ThemeBaseActivity implements View.OnClickListe
 
     private ActivityNavMainBinding binding;
 
+    private View drawerHeader;
+    private AppCompatImageView headerBackImage;
+    private RoundImageView headerImage;
+    private TextView signInText;
+
     private String appkey = "29a43c5b31ca43fe";
 
     private _User user;
+    private UserInfo userInfo;
 
     private NavigationView navigationView;
 
@@ -109,7 +128,6 @@ public class MainActivity extends ThemeBaseActivity implements View.OnClickListe
     void bindingValue(){
 
         Intent intent = getIntent();
-        Log.i(TAG, "bindingValue: 有 Intent");
         if(intent!=null){
 
             user = (_User) intent.getSerializableExtra("userInfo");
@@ -129,6 +147,27 @@ public class MainActivity extends ThemeBaseActivity implements View.OnClickListe
                 Glide.with(this)
                         .load(user.userHeader)
                         .into((ImageView) headerView.findViewById(R.id.userHeaderImage));
+
+                //获取用户信息
+                BmobQuery<UserInfo> bmobQuery = new BmobQuery<>();
+
+                bmobQuery.addWhereEqualTo("userId",user.userId);
+
+                bmobQuery.setLimit(1);
+                bmobQuery.findObjects(this, new FindListener<UserInfo>() {
+                    @Override
+                    public void onSuccess(List<UserInfo> list) {
+                        if(list.size()>0) {
+                            userInfo = list.get(0);
+                            signInText.setText("连续 "+userInfo.getSignInTime()+" 天签到");
+                        }
+                    }
+
+                    @Override
+                    public void onError(int i, String s) {
+                        ToastUtils.show(MainActivity.this,"呀，服务器被黑洞吃掉了呢。。\n原因："+s);
+                    }
+                });
             }
         }
 
@@ -148,6 +187,19 @@ public class MainActivity extends ThemeBaseActivity implements View.OnClickListe
         navigationView = findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);//显示原色
         navigationView.setNavigationItemSelectedListener(this);
+
+        drawerHeader = navigationView.getHeaderView(0);
+        View relativeLayout = drawerHeader.findViewById(R.id.headerLayout);
+
+        View signBtn = drawerHeader.findViewById(R.id.signInBtn);
+        signInText = drawerHeader.findViewById(R.id.textView);
+
+        signBtn.setOnClickListener(this);
+        relativeLayout.setOnClickListener(this);
+
+        headerBackImage = drawerHeader.findViewById(R.id.headerbackGround);
+        headerImage = drawerHeader.findViewById(R.id.userHeaderImage);
+        context = this;
     }
 
     void initValue(){
@@ -293,6 +345,22 @@ public class MainActivity extends ThemeBaseActivity implements View.OnClickListe
             case R.id.camera_translate:
                 //开始拍照，search
                 Log.i(TAG,"onClick: 拍照翻译");
+                break;
+            case R.id.headerLayout:
+                //个人信
+                Intent intent = new Intent(this,UserInfoActivity.class);
+                intent.putExtra("userInfo",userInfo);
+                intent.putExtra("user",user);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(MainActivity.this,
+                        new Pair<View, String>(headerBackImage,"headerbackGround"),
+                        new Pair<View, String>(headerImage,"headerImage"));
+
+                context.startActivity(intent,options.toBundle());
+                break;
+            case R.id.signInBtn:
+                Intent userInfoIntent = new Intent(this,SignInActivity.class);
+                userInfoIntent.putExtra("userInfo",userInfo);
+                context.startActivity(userInfoIntent);
                 break;
             default:
                 break;

@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <RelativeLayout
+        android:id="@+id/headerLayout"
         android:layout_width="match_parent"
         android:layout_height="@dimen/nav_header_height"
         android:background="@drawable/side_nav_bar">
@@ -10,7 +11,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:srcCompat="@mipmap/back_ground"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:transitionName="headerbackGround"/>
         <!--背景蒙版-->
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +35,8 @@
                 android:layout_height="50dp"
                 android:contentDescription="@string/nav_header_desc"
                 android:paddingTop="@dimen/nav_header_vertical_spacing"
-                app:srcCompat="@mipmap/my_headimg" />
+                app:srcCompat="@mipmap/my_headimg"
+                android:transitionName="headerImage"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,7 +48,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:text="@string/nav_header_title"
                     android:layout_gravity="center_vertical"
                     android:textAlignment="gravity"
                     android:gravity="center_vertical"
@@ -83,8 +85,7 @@
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/nav_header_subtitle" />
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 

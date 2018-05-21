@@ -1,8 +1,12 @@
 package com.alvin.smilesb101.brieftalk.View.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
@@ -26,7 +30,13 @@ import com.alvin.smilesb101.brieftalk.View.Adapter.MoreTranslationRecyclerAdapte
 import com.alvin.smilesb101.brieftalk.View.Fragment.BaseFragment.FragmentBase;
 import com.alvin.smilesb101.brieftalk.View.Interface.Fragment.ITranslateFrament;
 import com.alvin.smilesb101.brieftalk.View.Utils.Helper;
+import com.alvin.smilesb101.brieftalk.View.Utils.Share;
+import com.alvin.smilesb101.brieftalk.View.Utils.ToastUtils;
 import com.alvin.smilesb101.brieftalk.databinding.FragmentTranslateBinding;
+
+import java.io.IOException;
+
+import static android.content.Context.CLIPBOARD_SERVICE;
 
 
 /**
@@ -54,6 +64,8 @@ public class TranslateFragment extends FragmentBase implements ITranslateFrament
     private YouDaoTranslatePresenter youDaoTranslatePresenter;
     private MoreTranslationRecyclerAdapter moreTranslationAdatper;
     private boolean searchAble = true;
+
+    private YouDaoTranslateDataBean translateDataBean;
 
     private Handler handler = new Handler();
 
@@ -103,6 +115,7 @@ public class TranslateFragment extends FragmentBase implements ITranslateFrament
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_translate,container,false);
         rootView = binding.getRoot();
+        rootContext = binding.getRoot().getContext();
         bindingValue();
         initView();
         initValue();
@@ -119,6 +132,11 @@ public class TranslateFragment extends FragmentBase implements ITranslateFrament
         LinearLayoutManager layout = new LinearLayoutManager(this.rootContext,LinearLayoutManager.VERTICAL,false);
         binding.moreTranstion.setLayoutManager(layout);
         binding.moreTranstion.setNestedScrollingEnabled(false);
+
+        binding.getRoot().findViewById(R.id.audio).setOnClickListener(this);
+        binding.getRoot().findViewById(R.id.share).setOnClickListener(this);
+        binding.getRoot().findViewById(R.id.copy).setOnClickListener(this);
+        binding.getRoot().findViewById(R.id.fullscreen).setOnClickListener(this);
     }
 
     void initValue(){
@@ -158,7 +176,7 @@ public class TranslateFragment extends FragmentBase implements ITranslateFrament
         Log.i(TAG, "showYouDaoTranslateOnline: "+translateDataBean.getTranslate().getTranslations().size());
         //binding.translateResultPanel.setVisibility(View.VISIBLE);
         //binding.translateHistory.setVisibility(View.GONE);
-
+        this.translateDataBean = translateDataBean;
         binding.setTranslationBean(translateDataBean);
 
         if(translateDataBean.getTranslate().getWebExplains()!=null) {
@@ -216,10 +234,44 @@ public class TranslateFragment extends FragmentBase implements ITranslateFrament
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.translateInputPanel:
-                Log.i(TAG, "onClick: 搜索单词");
                 String input = binding.translateInput.getText().toString().trim();
                 translatePresenter.translateWord(input);
                 youDaoTranslatePresenter.translateWordOnline("自动","英文",input,"BriefTalk");
+                break;
+            case R.id.audio:
+                //播放音频
+                final MediaPlayer mediaPlayer = new MediaPlayer();
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                try{
+                    Log.i(TAG, "onClick: "+translateDataBean.getTranslate().getSpeakUrl());
+                    mediaPlayer.setDataSource(rootView.getContext(),Uri.parse(translateDataBean.getTranslate().getSpeakUrl()));
+                    mediaPlayer.prepareAsync();
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mediaPlayer.start();
+                        }
+                    });
+                } catch (IOException e) {
+                    ToastUtils.show(rootContext,"播放的时候遇到一些小问题。。。\n"+e.getMessage());
+                }
+                break;
+            case R.id.copy:
+                //复制
+                try {
+                    ClipboardManager cm = (ClipboardManager) rootContext.getSystemService(CLIPBOARD_SERVICE);
+                    //cm.setText(translateDataBean.getTranslate().getTranslations().get(0));
+                    cm.setPrimaryClip(ClipData.newPlainText("word",translateDataBean.getTranslate().getTranslations().get(0)));
+                    ToastUtils.show(rootContext,"成功复制到剪贴板！");
+                }
+                catch (NullPointerException ne)
+                {
+                    ToastUtils.show(rootContext,"复制失败了。\n"+ne.getMessage());
+                }
+                break;
+            case R.id.share:
+                Share share = new Share(rootContext);
+                share.shareToQQ(TranslateFragment.this.getActivity(),"来自曦语的分享","原文："+translateDataBean.getTranslate().getQuery()+"，译文："+translateDataBean.getTranslate().getTranslations().get(0)+"\n@ 来自曦语的分享");
                 break;
         }
     }

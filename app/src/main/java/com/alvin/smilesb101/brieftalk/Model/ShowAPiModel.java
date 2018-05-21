@@ -1,5 +1,6 @@
 package com.alvin.smilesb101.brieftalk.Model;
 
+import com.alvin.smilesb101.brieftalk.Bean.HistoryTodayBean;
 import com.alvin.smilesb101.brieftalk.Bean.ShenHuiFuBean;
 import com.alvin.smilesb101.brieftalk.Bean.ShowApiBean;
 import com.alvin.smilesb101.brieftalk.InterfaceAPI.LaiFuDaoService;
@@ -23,7 +24,6 @@ public class ShowAPiModel {
     private Retrofit client;
     private String baseUrl = "http://api.tianapi.com/";
     private ShowApiService service;
-
 
     public ShowAPiModel(String baseUrl){
         if(baseUrl!=null||baseUrl.trim()!="")

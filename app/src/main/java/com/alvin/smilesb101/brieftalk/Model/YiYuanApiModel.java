@@ -1,5 +1,10 @@
 package com.alvin.smilesb101.brieftalk.Model;
 
+import android.util.Log;
+
+import com.alvin.smilesb101.brieftalk.Bean.HistoryTodayBean;
+import com.alvin.smilesb101.brieftalk.Bean.ShowApiBean;
+import com.alvin.smilesb101.brieftalk.Bean.ShowApiCommonBean;
 import com.alvin.smilesb101.brieftalk.Bean.ShowBaiSiBuDeBean;
 import com.alvin.smilesb101.brieftalk.InterfaceAPI.ShowApiService;
 import com.alvin.smilesb101.brieftalk.Bean.ShowApiBSBDEntityBean;
@@ -86,5 +91,43 @@ public class YiYuanApiModel {
                     }
                 });
 
+    }
+
+    public interface onHistoryTodayListener{
+        void onSuccess(ArrayList<HistoryTodayBean> beans);
+        void onError(String error);
+    }
+
+    public void getHistoryToday(String date,final onHistoryTodayListener listener){
+        Map<String,String> queries = new HashMap<>();
+        queries.put("showapi_appid",appId);
+        queries.put("showapi_sign",appKey);
+
+        if(date!=null&&!date.isEmpty())
+        {
+            queries.put("date",date);
+        }
+
+        Observable<ShowApiCommonBean<HistoryTodayBean>> shenhuifuCall = service.getHistoryToday(queries);
+
+        shenhuifuCall.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Subscriber<ShowApiCommonBean<HistoryTodayBean>>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        listener.onError(e.getMessage());
+                    }
+
+                    @Override
+                    public void onNext(ShowApiCommonBean<HistoryTodayBean> arrayListShowApiBean) {
+                        Log.i(TAG, "onNext: "+arrayListShowApiBean.getShowapi_res_code());
+                        listener.onSuccess(arrayListShowApiBean.getShowapi_res_body().getList());
+                    }
+                });
     }
 }

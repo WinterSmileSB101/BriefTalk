@@ -95,7 +95,8 @@
         <activity android:name=".View.Activity.CardLearnActivity" />
         <activity android:name=".View.Activity.SkinActivity" />
         <activity android:name=".View.Activity.AboutProgrammAvtivity" />
-        <activity android:name=".View.Activity.UserInfoActivity"></activity>
+        <activity android:name=".View.Activity.UserInfoActivity" />
+        <activity android:name=".View.Activity.SignInActivity"></activity>
     </application>
 
 </manifest>

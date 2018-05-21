@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".View.Activity.SignInActivity">
+    <data>
+        <variable
+            name="titleText"
+            type="String"/>
+
+        <variable
+            name="mActivity"
+            type="com.alvin.smilesb101.brieftalk.View.Activity.SignInActivity"/>
+    </data>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    android:id="@+id/contentPanel">
+
+    <!--头部-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/toolbar"
+        android:fitsSystemWindows="true">
+        <android.support.v7.widget.LinearLayoutCompat
+            android:id="@+id/toolBarImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/ic_back"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/headImage"/>
+        <!--<android.support.design.widget.TabLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            app:tabBackground="?attr/colorPrimary"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"
+            android:id="@+id/tablayout"/>-->
+        <TextView
+            android:id="@+id/title"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:text="@{titleText}"
+            android:textSize="18sp"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="@color/colorWrite"/>
+    </RelativeLayout>
+    <!--头部-->
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/historyTodayPanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="334dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/react_recentale">
+
+                <!--日期-->
+                <RelativeLayout
+                    android:id="@+id/dateTimelayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="30dp">
+
+                    <TextView
+                        android:id="@+id/day"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:text="19"
+                        android:textColor="@color/colorWrite"
+                        android:textSize="40sp" />
+
+                    <TextView
+                        android:id="@+id/virLine"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginStart="-10dp"
+                        android:layout_toEndOf="@id/day"
+                        android:text="/"
+                        android:textColor="@color/colorWrite"
+                        android:textSize="30sp" />
+
+                    <TextView
+                        android:id="@+id/month"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_toEndOf="@id/virLine"
+                        android:layout_marginStart="-5dp"
+                        android:text="5"
+                        android:textColor="@color/colorWrite"
+                        android:textSize="18sp" />
+                </RelativeLayout>
+                <!--日期-->
+
+                <!--连续签到天数-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/dateTimelayout"
+                    android:layout_marginTop="88dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="连续签到天数："
+                        android:textColor="@color/colorWrite"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/signInDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12"
+                        android:textColor="@color/colorWrite"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+                <!--连续签到天数-->
+
+                <!--图片-->
+                <ImageView
+                    android:id="@+id/iamgeView"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:layout_alignParentEnd="true"
+                    android:scaleType="fitXY"
+                    android:layout_marginEnd="1dp"
+                    android:layout_marginTop="1dp"/>
+                <!--图片-->
+
+                <TextView
+                    android:id="@+id/todayWords"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="23dp"
+                    android:layout_marginEnd="15dp"
+                    android:gravity="start"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/colorWrite"
+                    android:layout_marginStart="15dp"/>
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="end"
+                    android:textAlignment="gravity"
+                    android:textColor="@color/colorWrite" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorSlateGray"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:orientation="horizontal"
+                    android:background="@color/colorWrite">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:textColor="@color/colorSlateGray"
+                        android:text="历史上的今天"
+                        android:gravity="center_vertical|start"
+                        android:textAlignment="gravity"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_marginStart="15dp"/>
+
+
+
+                </LinearLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/recyclerView"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+
+</LinearLayout>
+
+</layout>

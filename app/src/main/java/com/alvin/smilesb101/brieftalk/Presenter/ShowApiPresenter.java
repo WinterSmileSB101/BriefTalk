@@ -1,11 +1,13 @@
 package com.alvin.smilesb101.brieftalk.Presenter;
 
+import com.alvin.smilesb101.brieftalk.Bean.HistoryTodayBean;
 import com.alvin.smilesb101.brieftalk.Bean.ShenHuiFuBean;
 import com.alvin.smilesb101.brieftalk.Bean.ShowBaiSiBuDeBean;
 import com.alvin.smilesb101.brieftalk.Model.ShowAPiModel;
 import com.alvin.smilesb101.brieftalk.Model.YiYuanApiModel;
 import com.alvin.smilesb101.brieftalk.View.Interface.Fragment.ICommunityView;
 import com.alvin.smilesb101.brieftalk.View.Interface.Fragment.IShenHuiFuView;
+import com.alvin.smilesb101.brieftalk.View.Interface.IHistoryTodayView;
 
 import java.util.ArrayList;
 
@@ -13,6 +15,8 @@ public class ShowApiPresenter {
     private IShenHuiFuView shenHuiFuView;
 
     private ICommunityView communityView;
+
+    private IHistoryTodayView historyTodayView;
 
     public ShowApiPresenter(ICommunityView communityView) {
         this.communityView = communityView;
@@ -22,7 +26,11 @@ public class ShowApiPresenter {
         this.shenHuiFuView = shenHuiFuView;
     }
 
-    public void getShenHuiFu(int num,int page){
+    public ShowApiPresenter(IHistoryTodayView historyTodayView) {
+        this.historyTodayView = historyTodayView;
+    }
+
+    public void getShenHuiFu(int num, int page){
         ShowAPiModel.SHOW_A_PI_MODEL.getShenHuiFu(num, page, new ShowAPiModel.onShenHuiFuListener() {
             @Override
             public void onSuccess(ArrayList<ShenHuiFuBean> beans) {
@@ -35,7 +43,6 @@ public class ShowApiPresenter {
             }
         });
     }
-
 
     public void getBSBDJ(String type,String title,int page){
         YiYuanApiModel.SHOW_A_PI_MODEL.getBSBD(type,title,page,new YiYuanApiModel.onBaiSiBuDeJieListener(){
@@ -50,4 +57,21 @@ public class ShowApiPresenter {
             }
         });
     }
+
+    public void getHistoryToday(String date){
+        YiYuanApiModel.SHOW_A_PI_MODEL.getHistoryToday(date,new YiYuanApiModel.onHistoryTodayListener(){
+
+            @Override
+            public void onSuccess(ArrayList<HistoryTodayBean> beans) {
+                historyTodayView.ShowHistoryToday(beans);
+            }
+
+            @Override
+            public void onError(String error) {
+                historyTodayView.onError(error);
+            }
+        });
+    }
+
+
 }

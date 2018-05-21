@@ -17,6 +17,6 @@ public class _User extends BmobUser implements Serializable{
     public String qqUserName;
     public String region;
     public String school;
-    public String simpleDes;
-    public Date birthday;
+    public String smilpleDes;
+    public String birthday;
 }
