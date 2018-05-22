@@ -3,9 +3,10 @@ package com.alvin.smilesb101.brieftalk.Bean;
 import com.youdao.sdk.ydtranslate.Translate;
 import com.youdao.sdk.ydtranslate.WebExplain;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class YouDaoTranslateDataBean {
+public class YouDaoTranslateDataBean implements Serializable {
     private Long createTime;
 
     private Translate translate;

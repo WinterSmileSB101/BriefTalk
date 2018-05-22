@@ -96,7 +96,13 @@
         <activity android:name=".View.Activity.SkinActivity" />
         <activity android:name=".View.Activity.AboutProgrammAvtivity" />
         <activity android:name=".View.Activity.UserInfoActivity" />
-        <activity android:name=".View.Activity.SignInActivity"></activity>
+        <activity android:name=".View.Activity.SignInActivity" />
+        <activity
+            android:screenOrientation="landscape"
+            android:name=".View.Activity.FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fullscreen"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

@@ -2,23 +2,32 @@
 <resources>
     <declare-styleable name="CircleImageView">
 
-        <attr name="border_width" format="dimension"/>
+        <attr name="border_width" format="dimension" />
 
-        <attr name="border_color" format="color"/>
+        <attr name="border_color" format="color" />
 
     </declare-styleable>
 
     <declare-styleable name="ThemeAttrs">
-        <attr name="titleStyle" format="reference"/>
-        <attr name="contentStyle" format="reference"/>
+        <attr name="titleStyle" format="reference" />
+        <attr name="contentStyle" format="reference" />
         <attr name="myTabTextColor" format="color"></attr>
         <attr name="myTabSelecteColor" format="color"></attr>
         <attr name="titleColor" format="color"></attr>
         <attr name="contentColor" format="color"></attr>
-        <attr name="buttonBG" format="reference|color"/>
-        <attr name="buttonTextColor" format="reference|color"/>
-        <attr name="checkTextColor" format="reference|color"/>
-        <attr name="switchTextColor" format="reference|color"/>
+        <attr name="buttonBG" format="reference|color" />
+        <attr name="buttonTextColor" format="reference|color" />
+        <attr name="checkTextColor" format="reference|color" />
+        <attr name="switchTextColor" format="reference|color" />
+    </declare-styleable>
+
+    <!-- Declare custom theme attributes that allow changing which styles are
+         used for button bars depending on the API level.
+         ?android:attr/buttonBarStyle is new as of API 11 so this is
+         necessary to support previous API levels. -->
+    <declare-styleable name="ButtonBarContainerTheme">
+        <attr name="metaButtonBarStyle" format="reference" />
+        <attr name="metaButtonBarButtonStyle" format="reference" />
     </declare-styleable>
 </resources>
 

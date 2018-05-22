@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
@@ -26,6 +27,7 @@ import com.alvin.smilesb101.brieftalk.Bean.YouDaoTranslateDataBean;
 import com.alvin.smilesb101.brieftalk.Presenter.BaiduTranslatePresenter;
 import com.alvin.smilesb101.brieftalk.Presenter.YouDaoTranslatePresenter;
 import com.alvin.smilesb101.brieftalk.R;
+import com.alvin.smilesb101.brieftalk.View.Activity.FullscreenActivity;
 import com.alvin.smilesb101.brieftalk.View.Adapter.MoreTranslationRecyclerAdapter;
 import com.alvin.smilesb101.brieftalk.View.Fragment.BaseFragment.FragmentBase;
 import com.alvin.smilesb101.brieftalk.View.Interface.Fragment.ITranslateFrament;
@@ -272,6 +274,11 @@ public class TranslateFragment extends FragmentBase implements ITranslateFrament
             case R.id.share:
                 Share share = new Share(rootContext);
                 share.shareToQQ(TranslateFragment.this.getActivity(),"来自曦语的分享","原文："+translateDataBean.getTranslate().getQuery()+"，译文："+translateDataBean.getTranslate().getTranslations().get(0)+"\n@ 来自曦语的分享");
+                break;
+            case R.id.fullscreen:
+                Intent intent = new Intent(this.getActivity(), FullscreenActivity.class);
+                intent.putExtra("WordBean",translateDataBean);
+                this.getActivity().startActivity(intent);
                 break;
         }
     }

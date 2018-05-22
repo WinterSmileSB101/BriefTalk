@@ -20,7 +20,7 @@
         <item name="android:textColor">@color/colorWrite</item>
     </style>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <!--白色背景，黑色前景的弹出栏-->
     <style name="OverFlowMenuTheme" parent="Theme.AppCompat.NoActionBar">
@@ -43,7 +43,7 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <!--白天主题-->
     <style name="DayTheme" parent="@style/Theme.AppCompat.NoActionBar">
@@ -168,6 +168,18 @@
         <item name="android:textSize">16sp</item>
         <item name="android:layout_margin">16dp</item>
         <item name="android:maxLines">10</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="DayTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="android:Widget.Holo.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
     </style>
 
 </resources>
