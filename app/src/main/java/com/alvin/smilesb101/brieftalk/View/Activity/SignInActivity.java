@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -72,6 +73,14 @@ public class SignInActivity extends AppCompatActivity implements IHistoryTodayVi
             window.setNavigationBarColor(Color.TRANSPARENT);
         }
         binding = DataBindingUtil.setContentView(this,R.layout.activity_sign_in);
+        binding.headImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SignInActivity.this.onBackPressed();
+            }
+        });
+
         binding.setTitleText("语签");
         signInDateText = binding.getRoot().findViewById(R.id.signInDate);
         Intent intent = getIntent();

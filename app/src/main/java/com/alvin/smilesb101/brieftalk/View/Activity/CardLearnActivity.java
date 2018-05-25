@@ -51,6 +51,7 @@ public class CardLearnActivity extends ThemeBaseActivity {
         context = binding.getRoot().getContext();
         fragmentBases = new ArrayList<>();
         binding.setTitleText("卡片学习");
+
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

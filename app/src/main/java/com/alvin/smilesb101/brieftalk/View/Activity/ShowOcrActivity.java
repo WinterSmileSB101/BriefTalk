@@ -34,6 +34,11 @@ public class ShowOcrActivity extends ThemeBaseActivity implements IOcrTranslateF
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_show_ocr);
+
+        Toolbar toolbar = binding.toolbar;
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         TAG = ShowOcrActivity.class.getSimpleName();
         bindingValue();
 
