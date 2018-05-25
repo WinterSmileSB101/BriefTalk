@@ -30,8 +30,10 @@ import com.alvin.smilesb101.brieftalk.Presenter.KingSoftTodayWordPresenter;
 import com.alvin.smilesb101.brieftalk.Presenter.OcrTranslatePresenter;
 import com.alvin.smilesb101.brieftalk.Presenter.ZhiHuNewsPresenter;
 import com.alvin.smilesb101.brieftalk.R;
+import com.alvin.smilesb101.brieftalk.View.Activity.MainActivity;
 import com.alvin.smilesb101.brieftalk.View.Activity.ShowOcrActivity;
 import com.alvin.smilesb101.brieftalk.View.Adapter.ZhiHuNewsRecyclerAdapter;
+import com.alvin.smilesb101.brieftalk.View.CustomView.CustomLinearLayoutManager;
 import com.alvin.smilesb101.brieftalk.View.Fragment.BaseFragment.FragmentBase;
 import com.alvin.smilesb101.brieftalk.View.Interface.Fragment.IDictionaryFragment;
 import com.alvin.smilesb101.brieftalk.View.Interface.Fragment.IOcrTranslateFragment;
@@ -39,9 +41,13 @@ import com.alvin.smilesb101.brieftalk.View.Utils.CameraUtils;
 import com.alvin.smilesb101.brieftalk.View.Utils.GlideImageLoader;
 import com.alvin.smilesb101.brieftalk.View.Utils.Helper;
 import com.alvin.smilesb101.brieftalk.View.Utils.TesserTwoUtils;
+import com.alvin.smilesb101.brieftalk.View.Utils.ToastUtils;
 import com.alvin.smilesb101.brieftalk.databinding.FragmentDictionaryBinding;
 import com.google.gson.Gson;
 import com.googlecode.tesseract.android.TessBaseAPI;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youdao.ocr.online.OCRParameters;
 import com.youdao.ocr.online.RecognizeLanguage;
 import com.youth.banner.Banner;
@@ -77,12 +83,14 @@ public class DictionaryFragment extends FragmentBase implements View.OnClickList
     private OcrTranslatePresenter ocrTranslatePresenter;
     private Banner banner;
     private ZhiHuNewsRecyclerAdapter zhiHuNewsRecyclerAdapter;
+    public MainActivity activity;
 
     private YouDaoOcrFragment ocrFragment;
 
     private ZhiHuLastNewsBean newsBean;
     private String filePath;
     private Handler handler = new Handler();
+    private RefreshLayout refreshLayout;
 
     private OcrTranslateShowFragment showFragment;
 
@@ -135,7 +143,7 @@ public class DictionaryFragment extends FragmentBase implements View.OnClickList
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_dictionary, container, false);
         Log.i(TAG, "onCreateView: "+binding);
-
+        rootContext = binding.getRoot().getContext();
         rootView = binding.getRoot();
         bindValue();
         initView();
@@ -152,6 +160,31 @@ public class DictionaryFragment extends FragmentBase implements View.OnClickList
         banner.setImageLoader(new GlideImageLoader());
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
         banner.setIndicatorGravity(BannerConfig.RIGHT);
+
+        binding.getRoot().findViewById(R.id.translateBtn).setOnClickListener(this);
+
+        refreshLayout = binding.getRoot().findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                //刷新，
+                //没有更多了哟
+                zhiHuNewsPresenter.getLastNews();
+                //refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ToastUtils.show(rootContext,"没有更多了哟");
+                refreshlayout.finishLoadmore(/*,false*/);//传入false表示加载失败
+            }
+        });
         //binding.searchView.setQueryHint("请在此输入需要翻译的文本");
     }
 
@@ -178,21 +211,13 @@ public class DictionaryFragment extends FragmentBase implements View.OnClickList
         {
             case R.id.camera_translate:
                 //开始拍照，search
-                Log.i(TAG,"onClick: 拍照翻译");
-                /*if(ocrFragment==null) {
-                    ocrFragment = YouDaoOcrFragment.newInstance(null);
-                }
-                FragmentManager fm = this.getFragmentManager();
-                fm.beginTransaction()
-                        .addToBackStack(TAG)
-                        .replace(R.id.rootView,ocrFragment)
-                        .commit();*/
                 filePath= CameraUtils.getPicName(Environment.getExternalStorageDirectory()+"/BriefTalk/Ocr");
                 CameraUtils.takePhoto(this,rootView,filePath);
                 break;
-            case R.id.fab:
+            //case R.id.fab:
+            case R.id.translateBtn:
                 //Search 部分，search
-                Log.i(TAG,"onClick: 查询");
+                activity.selectFragment(1);
                 break;
             default:
                 break;
@@ -258,13 +283,19 @@ public class DictionaryFragment extends FragmentBase implements View.OnClickList
 
     @Override
     public void showHotList(ZhiHuLastNewsBean newsBean) {
+        Log.i(TAG, "showHotList: "+newsBean.stories.size());
         this.newsBean = newsBean;
         getStoryNewsExtra();
         LinearLayoutManager layout = new LinearLayoutManager(this.rootContext,LinearLayoutManager.VERTICAL,false);
+
+        //CustomLinearLayoutManager layout = new CustomLinearLayoutManager(this.rootContext);
+        //layout.setScrollEnabled(false);
         binding.newsList.setLayoutManager(layout);
         //binding.newsList.addItemDecoration(new DividerItemDecoration(this.rootContext, LinearLayoutManager.VERTICAL));
         zhiHuNewsRecyclerAdapter = new ZhiHuNewsRecyclerAdapter(this.newsBean,this,binding.newsList);
         binding.newsList.setAdapter(zhiHuNewsRecyclerAdapter);
+
+        refreshLayout.finishRefresh(/*,false*/);//传入false表示刷新失败
     }
 
     void getStoryNewsExtra(){

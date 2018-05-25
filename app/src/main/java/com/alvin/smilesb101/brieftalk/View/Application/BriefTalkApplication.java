@@ -2,9 +2,24 @@ package com.alvin.smilesb101.brieftalk.View.Application;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.alvin.smilesb101.brieftalk.View.Utils.Helper;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+import com.scwang.smartrefresh.header.PhoenixHeader;
+import com.scwang.smartrefresh.header.WaterDropHeader;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreater;
+import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreater;
+import com.scwang.smartrefresh.layout.api.RefreshFooter;
+import com.scwang.smartrefresh.layout.api.RefreshHeader;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.youdao.sdk.app.YouDaoApplication;
 
 import java.io.IOException;
@@ -15,6 +30,25 @@ public class BriefTalkApplication extends Application {
     private static BriefTalkApplication briefTalkApplication;
     private Context context;
     static final String TAG=BriefTalkApplication.class.getSimpleName();
+
+    static {
+        SmartRefreshLayout.setDefaultRefreshHeaderCreater(new DefaultRefreshHeaderCreater() {
+            @NonNull
+            @Override
+            public RefreshHeader createRefreshHeader(Context context, RefreshLayout layout) {
+                return new PhoenixHeader(context);
+            }
+        });
+
+        SmartRefreshLayout.setDefaultRefreshFooterCreater(new DefaultRefreshFooterCreater() {
+            @NonNull
+            @Override
+            public RefreshFooter createRefreshFooter(Context context, RefreshLayout layout) {
+                return new BallPulseFooter(context).setSpinnerStyle(SpinnerStyle.Translate);
+            }
+        });
+
+    }
 
     @Override
     public void onCreate() {
@@ -44,4 +78,5 @@ public class BriefTalkApplication extends Application {
     public static BriefTalkApplication getInstance() {
         return briefTalkApplication;
     }
+
 }

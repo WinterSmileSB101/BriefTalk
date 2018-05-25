@@ -8,5 +8,4 @@ import java.util.ArrayList;
 public interface ICommunityView {
     void onSuccess(ArrayList<ShowBaiSiBuDeBean> bsbdBeans);
     void onError(String error);
-    void onCommentsSuccess(ArrayList<BaiSiBuDeJieCommentBean> commentBeans);
 }

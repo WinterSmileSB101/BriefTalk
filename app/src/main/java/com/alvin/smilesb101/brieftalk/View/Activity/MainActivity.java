@@ -226,12 +226,13 @@ public class MainActivity extends ThemeBaseActivity implements View.OnClickListe
         mFm = getSupportFragmentManager();
         FragmentTransaction transaction = mFm.beginTransaction();
         dictionaryFragment = DictionaryFragment.newInstance(null);
+        dictionaryFragment.activity = this;
         binding.setTitleText(dictionaryFragment.getTitle());
         transaction.replace(R.id.contentPanel,dictionaryFragment);
         transaction.commit();
     }
 
-    void selectFragment(int position){
+    public void selectFragment(int position){
         FragmentTransaction transaction = mFm.beginTransaction();
         if(position>=0){
             switch (position){
@@ -308,17 +309,18 @@ public class MainActivity extends ThemeBaseActivity implements View.OnClickListe
         int id = item.getItemId();
 
         switch (id){
+            /*
             case R.id.nav_message:
                 break;
             case R.id.nav_plan:
-                break;
+                break;*/
             case R.id.nav_view:
                 break;
             case R.id.nav_skin:
                 // 打开皮肤界面
                 startActivity(new Intent(this,SkinActivity.class));
                 break;
-            case R.id.nav_setting:
+            /*case R.id.nav_setting:
                 // 打开设置
                 break;
             case R.id.nav_send:
@@ -327,7 +329,7 @@ public class MainActivity extends ThemeBaseActivity implements View.OnClickListe
             case R.id.nav_about:
                 // 打开关于
                 startActivity(new Intent(this,AboutProgrammAvtivity.class));
-                break;
+                break;*/
         }
 
         drawer.closeDrawer(GravityCompat.START);

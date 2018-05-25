@@ -2,6 +2,7 @@ package com.alvin.smilesb101.brieftalk.View.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.support.annotation.NonNull;
@@ -10,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.alvin.smilesb101.brieftalk.BR;
 import com.alvin.smilesb101.brieftalk.Bean.ShowBaiSiBuDeBean;
 import com.alvin.smilesb101.brieftalk.R;
+import com.alvin.smilesb101.brieftalk.View.Activity.CommentsActivity;
 import com.alvin.smilesb101.brieftalk.View.CustomView.RoundImageView;
 import com.alvin.smilesb101.brieftalk.View.Fragment.CommunityFragment;
 import com.bumptech.glide.Glide;
@@ -53,7 +56,7 @@ public class HotCommunityArticleRecyclerAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         HotHolder hotHolder = (HotHolder) holder;
-        ShowBaiSiBuDeBean baiSiBuDeBean = buDeBeans.get(position);
+        final ShowBaiSiBuDeBean baiSiBuDeBean = buDeBeans.get(position);
         hotHolder.getBinding().setVariable(BR.itemBean,baiSiBuDeBean);
 
         Glide.with(context).load(baiSiBuDeBean.getProfile_image())
@@ -61,6 +64,16 @@ public class HotCommunityArticleRecyclerAdapter extends RecyclerView.Adapter {
 
         Glide.with(context).load(baiSiBuDeBean.getCdn_img())
                 .into(hotHolder.itemImage);
+
+
+        hotHolder.comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CommentsActivity.class);
+                intent.putExtra("articleId",baiSiBuDeBean.getId());
+                context.startActivity(intent);
+            }
+        });
 
         hotHolder.getBinding().executePendingBindings();
     }
@@ -74,11 +87,15 @@ public class HotCommunityArticleRecyclerAdapter extends RecyclerView.Adapter {
 
         public ImageView itemImage;
         public RoundImageView userHeader;
+        public View rootView;
+        public RelativeLayout comments;
 
         public HotHolder(View itemView) {
             super(itemView);
+            rootView = itemView;
             itemImage = itemView.findViewById(R.id.itemImage);
             userHeader = itemView.findViewById(R.id.userHeader);
+            comments = itemView.findViewById(R.id.commentPanel);
         }
 
         private ViewDataBinding binding;

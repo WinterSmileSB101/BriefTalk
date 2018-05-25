@@ -1,5 +1,7 @@
 package com.alvin.smilesb101.brieftalk.InterfaceAPI;
 
+import com.alvin.smilesb101.brieftalk.Bean.BaiSiBuDeUserInfoBean;
+import com.alvin.smilesb101.brieftalk.Bean.IDataApiBean;
 import com.alvin.smilesb101.brieftalk.Bean.Idata_BaiSiBuDeJie;
 
 import java.util.Map;
@@ -13,4 +15,7 @@ public interface IdataApiService {
 
     @GET("comment/baisibudejie")
     Observable<Idata_BaiSiBuDeJie> GetBaiSiBuDeJieComments(@QueryMap Map<String,String> queries);
+
+    @GET("profile/baisibudejie")
+    Observable<IDataApiBean<BaiSiBuDeUserInfoBean>> GetBaiSiBuDeJieProfile(@QueryMap Map<String,String> queries);
 }

@@ -16,10 +16,12 @@ import com.alvin.smilesb101.brieftalk.Bean.BingTodayBean;
 import com.alvin.smilesb101.brieftalk.Bean.BmobTableBean._User;
 import com.alvin.smilesb101.brieftalk.Presenter.BingTodayPresenter;
 import com.alvin.smilesb101.brieftalk.R;
+import com.alvin.smilesb101.brieftalk.View.Application.GlideApp;
 import com.alvin.smilesb101.brieftalk.View.Interface.Activity.IWelcomeView;
 import com.alvin.smilesb101.brieftalk.View.Utils.ToastUtils;
 import com.alvin.smilesb101.brieftalk.databinding.ActivityWecomeBinding;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import cn.bmob.v3.BmobUser;
 
@@ -81,9 +83,15 @@ public class WelcomeActivity extends AppCompatActivity implements IWelcomeView {
         desc = binding.desc;
         waitText = binding.waitText;
         waitText.setText("4");
+        GlideApp.with(this)
+                .load(R.mipmap.back_ground)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(bingTodayImage);
+        /*
         Glide.with(this)
                 .load(R.mipmap.back_ground)
-                .into(bingTodayImage);
+                .into(bingTodayImage);*/
     }
 
     void initValue(){

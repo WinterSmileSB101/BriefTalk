@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.alvin.smilesb101.brieftalk.Bean.KingSoftWordPartsBen;
 import com.alvin.smilesb101.brieftalk.Presenter.KingSoftPresenter;
 import com.alvin.smilesb101.brieftalk.R;
 import com.alvin.smilesb101.brieftalk.View.Activity.CardLearnActivity;
+import com.alvin.smilesb101.brieftalk.View.Activity.ReviewActivity;
 import com.alvin.smilesb101.brieftalk.View.Activity.ZhiHuDetailActivity;
 import com.alvin.smilesb101.brieftalk.View.Adapter.WordBookRecyclerAdapter;
 import com.alvin.smilesb101.brieftalk.View.Fragment.BaseFragment.FragmentBase;
@@ -61,6 +63,8 @@ public class WordBookFragment extends FragmentBase implements IWordBookView,View
     String planText = "共 33 词，30 词已经加入复习计划";
     TextView planInfo;
     TextView reviewWords;
+
+    RecyclerView recyclerView;
 
     public WordBookFragment() {
         // Required empty public constructor
@@ -119,9 +123,10 @@ public class WordBookFragment extends FragmentBase implements IWordBookView,View
 
         rootView.findViewById(R.id.cardLeaningBtn).setOnClickListener(this);
         rootView.findViewById(R.id.reviewBtn).setOnClickListener(this);
-
+        rootView.findViewById(R.id.wordSyncBtn).setOnClickListener(this);
+        recyclerView = rootView.findViewById(R.id.wordRecycler);
         LinearLayoutManager layout = new LinearLayoutManager(this.rootContext,LinearLayoutManager.VERTICAL,false);
-        binding.wordRecycler.setLayoutManager(layout);
+        recyclerView.setLayoutManager(layout);
         presenter = new KingSoftPresenter(this);
         getWrods();
     }
@@ -137,8 +142,8 @@ public class WordBookFragment extends FragmentBase implements IWordBookView,View
                     words = (ArrayList<Word>) list;
                     Collections.sort(words);//排序
                     getWordsCount();
-                    adapter = new WordBookRecyclerAdapter(words,WordBookFragment.this,binding.wordRecycler);
-                    binding.wordRecycler.setAdapter(adapter);
+                    adapter = new WordBookRecyclerAdapter(words,WordBookFragment.this,recyclerView);
+                    recyclerView.setAdapter(adapter);
                     for (int i = 0;i<list.size();i++)
                     {
                         Log.i(TAG, "onSuccess: "+list.get(i).getWord());
@@ -213,6 +218,11 @@ public class WordBookFragment extends FragmentBase implements IWordBookView,View
 
                 break;
             case R.id.reviewBtn:
+                Intent reviewIntent = new Intent(rootContext,ReviewActivity.class);//新建Intent
+                rootContext.startActivity(reviewIntent, ActivityOptionsCompat.makeBasic().toBundle());//开新活动
+                break;
+            case R.id.wordSyncBtn:
+                getWrods();
                 break;
         }
     }

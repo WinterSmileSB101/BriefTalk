@@ -18,7 +18,7 @@
                 android:layout_height="match_parent">
 
                 <LinearLayout
-                    android:layout_marginTop="70dp"
+                    android:layout_marginTop="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
@@ -407,15 +407,20 @@
                         </android.support.v7.widget.LinearLayoutCompat>
                     </android.support.v7.widget.CardView>
 
+                    <com.scwang.smartrefresh.layout.SmartRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/refreshLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/articleList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                     </android.support.v7.widget.RecyclerView>
+                    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
                 </LinearLayout>
-
+<!--
                 <com.arlib.floatingsearchview.FloatingSearchView
                     android:id="@+id/floating_search_view"
                     android:layout_width="match_parent"
@@ -427,12 +432,13 @@
                     app:floatingSearch_suggestionsListAnimDuration="250"
                     app:floatingSearch_showSearchKey="false"
                     app:floatingSearch_leftActionMode="showHamburger"
-                    app:floatingSearch_close_search_on_keyboard_dismiss="true"/>
+                    app:floatingSearch_close_search_on_keyboard_dismiss="true"/>-->
 
             </RelativeLayout>
         </android.support.v4.widget.NestedScrollView>
 
         <!--新圈文按钮-->
+        <!--
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/addNewBtn"
             android:layout_width="wrap_content"
@@ -442,6 +448,7 @@
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:src="@drawable/ic_add"/>
+            -->
 
     </RelativeLayout>
 </layout>

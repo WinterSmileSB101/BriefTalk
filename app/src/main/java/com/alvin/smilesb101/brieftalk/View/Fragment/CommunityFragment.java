@@ -4,6 +4,8 @@ package com.alvin.smilesb101.brieftalk.View.Fragment;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,9 @@ import com.alvin.smilesb101.brieftalk.View.Fragment.BaseFragment.FragmentBase;
 import com.alvin.smilesb101.brieftalk.View.Interface.Fragment.ICommunityView;
 import com.alvin.smilesb101.brieftalk.databinding.FragmentCommunityBinding;
 import com.arlib.floatingsearchview.FloatingSearchView;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 
@@ -42,6 +47,11 @@ public class CommunityFragment extends FragmentBase implements ICommunityView {
     ShowApiPresenter showApiPresenter;
 
     HotCommunityArticleRecyclerAdapter articleRecyclerAdapter;
+
+    RefreshLayout refreshLayout;
+    int page = 1;
+
+    RecyclerView recyclerView;
 
     public CommunityFragment() {
         // Required empty public constructor
@@ -86,6 +96,12 @@ public class CommunityFragment extends FragmentBase implements ICommunityView {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_community, container, false);
+        recyclerView = binding.getRoot().findViewById(R.id.articleList);
+
+        CustomLinearLayoutManager layout = new CustomLinearLayoutManager(this.rootContext);
+        layout.setScrollEnabled(false);
+        //LinearLayoutManager layout = new LinearLayoutManager(this.rootContext,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(layout);
         rootView = binding.getRoot();
         rootContext = rootView.getContext();
 
@@ -94,28 +110,63 @@ public class CommunityFragment extends FragmentBase implements ICommunityView {
     }
 
     private void BindValue() {
+        /*
         binding.floatingSearchView.setOnQueryChangeListener(new FloatingSearchView.OnQueryChangeListener() {
             @Override
             public void onSearchTextChanged(String oldQuery, String newQuery) {
-                //binding.floatingSearchView.swapSuggestions(new s);
+                Log.i(TAG, "onSearchTextChanged: "+newQuery);
+                title = newQuery;
+                refreshLayout.setEnableRefresh(true);
+            }
+        });*/
+        showApiPresenter = new ShowApiPresenter(this);
+
+        showApiPresenter.getBSBDJ("10","",1);
+
+        refreshLayout = binding.getRoot().findViewById(R.id.refreshLayout);
+        refreshLayout.setEnableRefresh(true);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                //刷新，
+                page = 1;
+                showApiPresenter.getBSBDJ("10","",1);
             }
         });
-        showApiPresenter = new ShowApiPresenter(this);
-        showApiPresenter.getBSBDJ("10",null,1);
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                page++;
+                showApiPresenter.getBSBDJ("10","",page);
+            }
+        });
     }
 
     @Override
     public void onSuccess(ArrayList<ShowBaiSiBuDeBean> bsbdBeans) {
-
-        CustomLinearLayoutManager layout = new CustomLinearLayoutManager(this.rootContext);
-        layout.setScrollEnabled(false);
-        binding.articleList.setLayoutManager(layout);
-        articleRecyclerAdapter = new HotCommunityArticleRecyclerAdapter(this,binding.articleList,bsbdBeans);
-        binding.articleList.setAdapter(articleRecyclerAdapter);
+        Log.i(TAG, "onSuccess: "+bsbdBeans.size());
+        articleRecyclerAdapter = new HotCommunityArticleRecyclerAdapter(this,recyclerView,bsbdBeans);
+        recyclerView.setAdapter(articleRecyclerAdapter);
+        if(refreshLayout.isLoading())
+        {
+            refreshLayout.finishLoadmore(/*,false*/);//传入false表示加载失败
+        }
+        else if(refreshLayout.isRefreshing())
+        {
+            refreshLayout.finishRefresh();
+        }
     }
 
     @Override
     public void onError(String error) {
         Log.i(TAG, "onError: 获取百思不得失败："+error);
+        if(refreshLayout.isLoading())
+        {
+            refreshLayout.finishLoadmore(false);//传入false表示加载失败
+        }
+        else if(refreshLayout.isRefreshing())
+        {
+            refreshLayout.finishRefresh(false);
+        }
     }
 }

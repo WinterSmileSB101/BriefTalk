@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +20,9 @@ import com.alvin.smilesb101.brieftalk.View.Fragment.BaseFragment.FragmentBase;
 import com.alvin.smilesb101.brieftalk.View.Interface.Fragment.ILaiFuDaoFragmentView;
 import com.alvin.smilesb101.brieftalk.View.Utils.ToastUtils;
 import com.alvin.smilesb101.brieftalk.databinding.FragmentLaiFuDaoImageBinding;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 
@@ -42,6 +46,10 @@ public class LaiFuDaoImageFragment extends FragmentBase implements ILaiFuDaoFrag
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    RefreshLayout refreshLayout;
+
+    RecyclerView recyclerView;
 
 
     public LaiFuDaoImageFragment() {
@@ -95,14 +103,37 @@ public class LaiFuDaoImageFragment extends FragmentBase implements ILaiFuDaoFrag
     }
 
     private void bindValue() {
+        recyclerView = rootView.findViewById(R.id.contentView);
         LinearLayoutManager layout = new LinearLayoutManager(this.rootContext,LinearLayoutManager.VERTICAL,false);
-        binding.contentView.setLayoutManager(layout);
+        recyclerView.setLayoutManager(layout);
 
         presenter = new LaiFuDaoPresenter(this);
         presenter.getLaiFuDaoJokeImage();
+
     }
 
     private void initView() {
+        refreshLayout = binding.getRoot().findViewById(R.id.refreshLayout);
+        refreshLayout.setEnableRefresh(true);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                //刷新，
+                presenter.getLaiFuDaoJokeImage();
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ToastUtils.show(rootContext,"没有更多了哟");
+                refreshlayout.finishLoadmore(/*,false*/);//传入false表示加载失败
+            }
+        });
     }
 
     private void initValue() {
@@ -115,12 +146,21 @@ public class LaiFuDaoImageFragment extends FragmentBase implements ILaiFuDaoFrag
 
     @Override
     public void onJokeIamageSuccess(ArrayList<laiFuDaoJokeImage> laiFuDaoJokeImages) {
-        adapter = new LaifuDaoJokeImageAdapter(laiFuDaoJokeImages,this,binding.contentView);
-        binding.contentView.setAdapter(adapter);
+        adapter = new LaifuDaoJokeImageAdapter(laiFuDaoJokeImages,this,recyclerView);
+        recyclerView.setAdapter(adapter);
+        refreshLayout.finishRefresh(/*,false*/);//传入false表示刷新失败
     }
 
     @Override
     public void onError(String error) {
         ToastUtils.show(rootContext,error);
+        if(refreshLayout.isLoading())
+        {
+            refreshLayout.finishLoadmore(false);//传入false表示加载失败
+        }
+        else if(refreshLayout.isRefreshing())
+        {
+            refreshLayout.finishRefresh(false);
+        }
     }
 }

@@ -16,6 +16,8 @@ public class BaiSiBuDeJieCommentBean implements Serializable{
     String commentId;
     int publishDate;
     String referId;
+    String commenterId;
+    String commenterScreenName;
 
     public int getCommentCount() {
         return commentCount;
@@ -119,5 +121,21 @@ public class BaiSiBuDeJieCommentBean implements Serializable{
 
     public void setReferId(String referId) {
         this.referId = referId;
+    }
+
+    public String getCommenterId() {
+        return commenterId;
+    }
+
+    public void setCommenterId(String commenterId) {
+        this.commenterId = commenterId;
+    }
+
+    public String getCommenterScreenName() {
+        return commenterScreenName;
+    }
+
+    public void setCommenterScreenName(String commenterScreenName) {
+        this.commenterScreenName = commenterScreenName;
     }
 }

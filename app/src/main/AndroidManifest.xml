@@ -91,18 +91,22 @@
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <!-- QQ 互联 -->
         <activity android:name=".View.Activity.ZhiHuDetailActivity" />
-        <activity android:name=".View.Activity.ReviewActivity" />
         <activity android:name=".View.Activity.CardLearnActivity" />
         <activity android:name=".View.Activity.SkinActivity" />
         <activity android:name=".View.Activity.AboutProgrammAvtivity" />
         <activity android:name=".View.Activity.UserInfoActivity" />
         <activity android:name=".View.Activity.SignInActivity" />
         <activity
-            android:screenOrientation="landscape"
             android:name=".View.Activity.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen"
-            android:theme="@style/FullscreenTheme"></activity>
+            android:screenOrientation="landscape"
+            android:theme="@style/FullscreenTheme" />
+        <activity
+            android:name=".View.Activity.CommentsActivity"
+            android:label="@string/title_activity_comments" />
+        <activity android:name=".View.Activity.ReviewActivity"></activity>
+
     </application>
 
 </manifest>

@@ -3,6 +3,9 @@ package com.alvin.smilesb101.brieftalk.View.Fragment;
 
 import android.animation.ObjectAnimator;
 import android.databinding.DataBindingUtil;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.text.Html;
@@ -21,8 +24,10 @@ import com.alvin.smilesb101.brieftalk.Presenter.KingSoftPresenter;
 import com.alvin.smilesb101.brieftalk.R;
 import com.alvin.smilesb101.brieftalk.View.Fragment.BaseFragment.FragmentBase;
 import com.alvin.smilesb101.brieftalk.View.Interface.Fragment.IWordBookView;
+import com.alvin.smilesb101.brieftalk.View.Utils.ToastUtils;
 import com.alvin.smilesb101.brieftalk.databinding.FragmentCardLearnBinding;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 /**
@@ -30,7 +35,7 @@ import java.util.ArrayList;
  * Use the {@link CardLearnFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CardLearnFragment extends FragmentBase implements IWordBookView{
+public class CardLearnFragment extends FragmentBase implements IWordBookView,View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -44,6 +49,7 @@ public class CardLearnFragment extends FragmentBase implements IWordBookView{
     KingSoftPresenter presenter;
 
     FragmentCardLearnBinding binding;
+    KingSoftWordBean wordBean;
 
     View rootPanel;
 
@@ -103,6 +109,7 @@ public class CardLearnFragment extends FragmentBase implements IWordBookView{
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_card_learn, container, false);
         rootView = binding.getRoot();
+        binding.usPanel.setOnClickListener(this);
         BindingValue();
         return rootView;
     }
@@ -163,6 +170,7 @@ public class CardLearnFragment extends FragmentBase implements IWordBookView{
     public void showWordTranslate(KingSoftWordBean wordBean, int pos) {
         ArrayList<KingSoftWordPartsBen> partsBens = wordBean.getSymbols().get(0).getParts();
 
+        this.wordBean = wordBean;
         String binText = "";
         for (KingSoftWordPartsBen partsBen:partsBens) {
             binText+=partsBen.getPart()+partsBen.getMeans().toString()+"<br/>";
@@ -190,5 +198,46 @@ public class CardLearnFragment extends FragmentBase implements IWordBookView{
     @Override
     public void onError(String error) {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId())
+        {
+            case R.id.usPanel:
+                final MediaPlayer mediaPlayer = new MediaPlayer();
+                mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                try{
+                    Log.i(TAG, "onClick: "+wordBean.getSymbols().get(0).getPg_en_mp3());
+                    mediaPlayer.setDataSource(rootView.getContext(), Uri.parse(wordBean.getSymbols().get(0).getPg_en_mp3()));
+                    mediaPlayer.prepareAsync();
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mediaPlayer.start();
+                        }
+                    });
+                } catch (IOException e) {
+                    ToastUtils.show(rootContext,"播放的时候遇到一些小问题。。。\n"+e.getMessage());
+                }
+                break;
+            case R.id.ukPanel:
+                final MediaPlayer mediaPlayer2 = new MediaPlayer();
+                mediaPlayer2.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                try{
+                    Log.i(TAG, "onClick: "+wordBean.getSymbols().get(0).getPh_am_mp3());
+                    mediaPlayer2.setDataSource(rootView.getContext(), Uri.parse(wordBean.getSymbols().get(0).getPh_am_mp3()));
+                    mediaPlayer2.prepareAsync();
+                    mediaPlayer2.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        @Override
+                        public void onPrepared(MediaPlayer mp) {
+                            mediaPlayer2.start();
+                        }
+                    });
+                } catch (IOException e) {
+                    ToastUtils.show(rootContext,"播放的时候遇到一些小问题。。。\n"+e.getMessage());
+                }
+                break;
+        }
     }
 }

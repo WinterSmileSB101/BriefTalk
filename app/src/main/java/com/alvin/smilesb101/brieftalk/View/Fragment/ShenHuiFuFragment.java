@@ -17,6 +17,9 @@ import com.alvin.smilesb101.brieftalk.View.Fragment.BaseFragment.FragmentBase;
 import com.alvin.smilesb101.brieftalk.View.Interface.Fragment.IShenHuiFuView;
 import com.alvin.smilesb101.brieftalk.View.Utils.ToastUtils;
 import com.alvin.smilesb101.brieftalk.databinding.FragmentShenHuiFuBinding;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 
@@ -40,6 +43,9 @@ public class ShenHuiFuFragment extends FragmentBase implements IShenHuiFuView {
     FragmentShenHuiFuBinding binding;
     ShowApiPresenter showApiPresenter;
     ShenHuiFuRecyclerAdapter adapter;
+
+    RefreshLayout refreshLayout;
+    int page = 1;
 
 
     public ShenHuiFuFragment() {
@@ -86,7 +92,7 @@ public class ShenHuiFuFragment extends FragmentBase implements IShenHuiFuView {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_shen_hui_fu, container, false);
         rootView = binding.getRoot();
-
+        rootContext = binding.getRoot().getContext();
         bindValue();
         initView();
         initValue();
@@ -103,6 +109,23 @@ public class ShenHuiFuFragment extends FragmentBase implements IShenHuiFuView {
     }
 
     private void initView() {
+        refreshLayout = binding.getRoot().findViewById(R.id.refreshLayout);
+        refreshLayout.setEnableRefresh(true);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                //刷新，
+                page = 1;
+                showApiPresenter.getShenHuiFu(20,1);
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                page++;
+                showApiPresenter.getShenHuiFu(20,page);
+            }
+        });
     }
 
     private void initValue() {
@@ -112,10 +135,26 @@ public class ShenHuiFuFragment extends FragmentBase implements IShenHuiFuView {
     public void showShenHuiFu(ArrayList<ShenHuiFuBean> beans) {
         adapter = new ShenHuiFuRecyclerAdapter(beans,this,binding.contentView);
         binding.contentView.setAdapter(adapter);
+        if(refreshLayout.isLoading())
+        {
+            refreshLayout.finishLoadmore(/*,false*/);//传入false表示加载失败
+        }
+        else if(refreshLayout.isRefreshing())
+        {
+            refreshLayout.finishRefresh();
+        }
     }
 
     @Override
     public void onError(String error) {
         ToastUtils.show(rootContext,error);
+        if(refreshLayout.isLoading())
+        {
+            refreshLayout.finishLoadmore(false);//传入false表示加载失败
+        }
+        else if(refreshLayout.isRefreshing())
+        {
+            refreshLayout.finishRefresh(false);
+        }
     }
 }

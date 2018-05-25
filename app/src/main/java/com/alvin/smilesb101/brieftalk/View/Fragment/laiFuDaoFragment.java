@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,9 @@ import com.alvin.smilesb101.brieftalk.View.Fragment.BaseFragment.FragmentBase;
 import com.alvin.smilesb101.brieftalk.View.Interface.Fragment.ILaiFuDaoFragmentView;
 import com.alvin.smilesb101.brieftalk.View.Utils.ToastUtils;
 import com.alvin.smilesb101.brieftalk.databinding.FragmentLaiFuDaoBinding;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 
@@ -42,6 +46,10 @@ public class laiFuDaoFragment extends FragmentBase implements ILaiFuDaoFragmentV
     FragmentLaiFuDaoBinding binding;
     private LaifuDaoJokeAdapter adapter;
     private LaiFuDaoPresenter presenter;
+
+    RefreshLayout refreshLayout;
+
+    RecyclerView recyclerView;
 
 
     public laiFuDaoFragment() {
@@ -87,6 +95,7 @@ public class laiFuDaoFragment extends FragmentBase implements ILaiFuDaoFragmentV
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_lai_fu_dao,container, false);
+        rootContext = binding.getRoot().getContext();
         rootView = binding.getRoot();
         bindValue();
         initView();
@@ -95,14 +104,36 @@ public class laiFuDaoFragment extends FragmentBase implements ILaiFuDaoFragmentV
     }
 
     private void bindValue() {
-        LinearLayoutManager layout = new LinearLayoutManager(this.rootContext,LinearLayoutManager.VERTICAL,false);
-        binding.contentView.setLayoutManager(layout);
-
+        recyclerView = rootView.findViewById(R.id.contentView);
+        LinearLayoutManager layout = new LinearLayoutManager(rootContext,LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(layout);
         presenter = new LaiFuDaoPresenter(this);
         presenter.getLaiFuDaoJoke();
     }
 
     private void initView() {
+
+        refreshLayout = binding.getRoot().findViewById(R.id.refreshLayout);
+        refreshLayout.setEnableRefresh(true);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                //刷新，
+                presenter.getLaiFuDaoJoke();
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ToastUtils.show(rootContext,"没有更多了哟");
+                refreshlayout.finishLoadmore(/*,false*/);//传入false表示加载失败
+            }
+    });
     }
 
     private void initValue() {
@@ -110,8 +141,9 @@ public class laiFuDaoFragment extends FragmentBase implements ILaiFuDaoFragmentV
 
     @Override
     public void onJokeSuccess(ArrayList<LaiFuDaoJoke> laiFuDaoJokes) {
-        adapter = new LaifuDaoJokeAdapter(laiFuDaoJokes,this,binding.contentView);
+        adapter = new LaifuDaoJokeAdapter(laiFuDaoJokes,this,recyclerView);
         binding.contentView.setAdapter(adapter);
+        refreshLayout.finishRefresh(/*,false*/);//传入false表示刷新失败
     }
 
     @Override
